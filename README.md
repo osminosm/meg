@@ -1,13 +1,13 @@
 # Meg - a minimalistic blog/personal site
 
-[Meg](https://en.wiktionary.org/wiki/meg#Norwegian_Bokm%C3%A5l) [ the pronoun 'me' in norwegian : /mæɪ̯/], is a lightweight, minimalistic Blog/Personal site, with the sole goal to give its users
+[Meg](https://en.wiktionary.org/wiki/meg#Norwegian_Bokm%C3%A5l) [ the pronoun 'me' in norwegian : /mæɪ̯/], is a lightweight, minimalistic Blog/Personal site, with the sole goal to give its users an easy to run, fast, secure blog.
 
 ## Clone, Setup and Run:
 
 Clone the project to a local repo:
 
 ```
-git clone http://github.com/osminosm/meg.git
+git clone https://github.com/osminosm/meg.git
 cd ./meg
 ```
 

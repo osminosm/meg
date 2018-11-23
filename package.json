@@ -1,9 +1,9 @@
 {
   "name": "blog",
   "version": "1.0.0",
-  "description": "Osman's blog",
+  "description": "Meg - a minimalistic blog/personal site",
   "main": "index.js",
-  "author": "Osman Kalache",
+  "author": "Osmane Kalache",
   "license": "MIT",
   "private": false,
   "scripts": {
