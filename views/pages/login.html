@@ -1,0 +1,53 @@
+<%- include('../partials/header.html',pageHeader) %>
+<div class="page-header">
+  <h1>Login</h1>
+</div>
+<div class="container">
+  <div class="row justify-content-md-center">
+    <div class="col-md-4">
+      <form action="#" id="loginForm">
+        <div class="form-group">
+          <label for="username">Username</label>
+          <input class="form-control" id="username" name="username" v-model="username" type="text" />
+        </div>
+        <div class="form-group">
+          <label for="password">Password</label>
+          <input class="form-control" id="password" name="password" v-model="password" type="password" />
+        </div>
+        <button class="btn btn-lg btn-block btn-primary" @click="loginButtonClick">Login</button>
+      </form>
+    </div>
+  </div>
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/axios/0.18.0/axios.min.js"></script>
+
+<script>
+  new Vue({
+    el: '#loginForm',
+    data: {
+      username: '',
+      password: ''
+    },
+    methods: {
+      loginButtonClick: function (e) {
+        e.preventDefault()
+        axios('/api/auth', {
+          method: 'post',
+          data: this.$data,
+          withCredencials: true
+        }).then(response => {
+          if (response.data.access_token) {
+            window.location.href = '/admin/settings'
+          }
+        }).catch((err,xhr) => {
+          console.log(err)
+          alert(`Error : ${err.response.data.message || JSON.stringify(err.response.data)}`)
+        })
+      }
+    }
+  })
+</script>
+
+<%- include ../partials/footer.html %>

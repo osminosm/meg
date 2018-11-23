@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <meta charset="UTF-8">
+  <title>Blog Admin - <%=title%></title>
+
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css">
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+
+  <link rel="stylesheet" href="/assets/vendor/content-tools/content-tools.min.css">
+
+  <link rel="stylesheet" href="/assets/css/main.css">
+  <link rel="stylesheet" href="/assets/css/main-admin.css">
+</head>
+
+<body>
+  <header>
+    <div class="header-overlay"></div>
+    <div class="header-content">
+
+      <nav>
+        <ul>
+          <li class="<%=activeNavigation==='home'?'selected':''%>"><a href="/">Go to Site Home</a></li>
+          <li class="<%=activeNavigation==='blog'?'selected':''%>"><a href="/admin/blog">Blog Managment</a></li>
+          <li class="<%=activeNavigation==='settings'?'selected':''%>"><a href="/admin/settings">Site Settings</a></li>
+          <li><a href="/logout">Logout</a></li>
+        </ul>
+      </nav>
+      <%- include ./social-links.html %>
+    </div>
+  </header>
+  <main>
+    <div class="container">

@@ -1,0 +1,85 @@
+<%- include('../partials/admin-header.html', pageHeader) %>
+
+<div class="container-fluid">
+
+  <h4>Settings </h4>
+
+  <hr />
+  <div id="settingsform">
+    <form action="" class="container-fluid">
+      <button class="btn btn-info pull-right" v-on:click="save"><i class="fa fa-save"> Save</i></button>
+      <div class="row">
+        <div class="col-md-6">
+          <h5>Site properties</h5>
+          <div class="form-group">
+            <label for="sitetitle">Site Title</label>
+            <input type="text" class="form-control" id="sitetitle" v-model="sitetitle" />
+          </div>
+          <div class="form-group">
+            <label for="sitename">Site Name</label>
+            <input type="text" class="form-control" id="sitename" v-model="sitename" />
+          </div>
+          <div class="form-group">
+            <label for="headline">Headline</label>
+            <input type="text" class="form-control" id="headline" v-model="headline" />
+          </div>
+          <div class="form-group">
+            <label for="profile_picture_url">Profile Picture Url</label>
+            <input type="text" class="form-control" id="profile_picture_url" v-model="profile_picture_url" />
+          </div>
+        </div>
+        <div class="col-md-6">
+          <h5>Social Links</h5>
+          <% const platforms = ['facebook', 'instagram', 'twitter', 'github', 'linkedin'] %>
+          <% platforms.forEach(platform => { %>
+          <div class="form-group">
+            <label for="social_<%=platform%>">
+              <%=platform%></label>
+            <input type="text" class="form-control" id="social_<%=platform%>" v-model="social_<%=platform%>" />
+          </div>
+          <% }) %>
+        </div>
+      </div>
+    </form>
+  </div>
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/axios/0.18.0/axios.min.js"></script>
+<script>
+  const savedData = <%- JSON.stringify(options) %>
+  const fields = [
+    'sitetitle',
+    'sitename',
+    'headline',
+    'profile_picture_url',
+
+    'social_facebook',
+    'social_instagram',
+    'social_twitter',
+    'social_github',
+    'social_linkedin'
+  ]
+  fields.forEach(key => {
+    if(!savedData[key]) savedData[key] = ''
+  })
+  new Vue({
+    el: '#settingsform',
+    data: savedData,
+    methods: {
+      save: function (e) {
+        e.preventDefault()
+        axios.post('/api/options', this.$data).then((response) => {
+          alert('settings saved')
+        })
+      }
+    }
+  })
+</script>
+<style>
+  label::first-letter {
+    text-transform: capitalize
+  }
+</style>
+
+<%- include ../partials/footer.html %>

@@ -1,0 +1,19 @@
+<div class="social">
+  <%
+  const classMap = {
+    facebook:'facebook-square',
+    instagram:'instagram',
+    twitter:'twitter-square',
+    github:'github',
+    linkedin:'linkedin-square'
+  }
+  Object.keys(site_options)
+    .filter(key => key.indexOf('social_')===0 && site_options[key]!=='')
+    .map(key => key.substr(7))
+    .forEach((key)=>{
+  %>
+  <a href="<%=site_options['social_' + key]%>"><i class="fa fa-<%=(classMap[key] || key)%> fa-2x"></i></a>
+  <%
+    })
+  %>
+</div>

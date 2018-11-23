@@ -1,0 +1,28 @@
+<%- include('../partials/header.html',pageHeader) %>
+
+<div class="page-header">
+  <h1>Blog.find({}).sort({date: 'descending'})</h1>
+</div>
+
+<ul class="blog-list">
+  <% items.forEach(function(post){ %>
+  <li>
+    <div class="media">
+      <div class="media-body">
+        <a href="/blog/<%= post.slug %>">
+          <h5 class="mt-0">
+            <%= post.title %>
+          </h5>
+        </a>
+        <span>
+          <i class="fa fa-clock-o"></i> <%=(new Date(post.createdAt)).toLocaleString("en-US")%></span>
+        <p>
+          <%- post.exerpt %>
+        </p>
+      </div>
+    </div>
+  </li>
+  <% }) %>
+
+</ul>
+<%- include ../partials/footer.html %>

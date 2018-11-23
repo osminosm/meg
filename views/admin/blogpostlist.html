@@ -1,0 +1,11 @@
+<%- include('../partials/admin-header.html', pageHeader) %>
+
+<div class="container-fluid">
+  <h3>Blog posts</h3>
+
+  <% postList.forEach(post => { %>
+    <a href="/admin/blog/post/<%=post.slug%>"><%=post.title%></a>
+  <% }) %>
+</div>
+
+<%- include ../partials/footer.html %>

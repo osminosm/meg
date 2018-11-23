@@ -1,0 +1,18 @@
+{
+  "host":"localhost",
+  "port":"3000",
+
+  "db": {
+    "dbname": "blog",
+    "username": "username",
+    "password": "",
+    "options": {
+      "dialect": "sqlite",
+      "storage": "../database.sqlite"
+    }
+  },
+  "bcryptSaltWorkFactor": 10,
+  "jwtSecret": "<secret>",
+  "jwtUserExpiresIn": 86400,
+  "tokenCookieName": "access_token"
+}

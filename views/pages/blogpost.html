@@ -1,0 +1,13 @@
+<%- include('../partials/header.html',pageHeader) %>
+<div class="post-header">
+  <h1>
+    <%=post.title%>
+  </h1>
+  <span>
+    <i class="fa fa-clock-o"></i>
+    <%=(new Date(post.createdAt)).toLocaleString("en-US")%>
+  </span>
+</div>
+  <%- post.content %>
+
+    <%- include ../partials/footer.html %>

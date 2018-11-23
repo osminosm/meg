@@ -1,0 +1,32 @@
+{
+  "name": "blog",
+  "version": "1.0.0",
+  "description": "Osman's blog",
+  "main": "index.js",
+  "author": "Osman Kalache",
+  "license": "MIT",
+  "private": false,
+  "scripts": {
+    "start": "nodemon index",
+    "setup": "node setup"
+  },
+  "dependencies": {
+    "bcrypt": "^3.0.2",
+    "body-parser": "^1.18.3",
+    "compression": "^1.7.3",
+    "cookie-parser": "^1.4.3",
+    "cors": "^2.8.5",
+    "ejs": "^2.6.1",
+    "express": "^4.16.4",
+    "express-jwt": "^5.3.1",
+    "helmet": "^3.15.0",
+    "jsonwebtoken": "^8.4.0",
+    "morgan": "^1.9.1",
+    "node-args": "^2.1.8",
+    "sequelize": "^4.41.1",
+    "sqlite3": "^4.0.4"
+  },
+  "devDependencies": {
+    "nodemon": "^1.18.6"
+  }
+}
