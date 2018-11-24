@@ -7,6 +7,7 @@ const morgan = require('morgan')
 const helmet = require('helmet')
 const compression = require('compression')
 const { loadOptions, protected, configureJwt, configureCors, errorHandler } = require('./middlewares')
+const { host, port } = require('./utils/config')
 
 const app = express()
 
@@ -30,7 +31,7 @@ app.use(errorHandler.renderError)
 app.use(errorHandler.renderNotFound)
 
 sequelize.sync().then(() => {
-  app.listen(3000, () => {
-    console.log('Server listing on 3000')
+  app.listen(port, host, () => {
+    console.log(`Server started listening on ${host}:${port}`)
   })
 })
