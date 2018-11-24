@@ -1,0 +1,85 @@
+<%- include('../partials/admin-header.html', pageHeader) %>
+
+<div class="container-fluid">
+
+ 
+
+  <div class="container-fluid">
+    <div id="aboutPageEditor">
+      <button class="btn btn-success pull-right" v-on:click="save" tabindex="1000"><i class="fa fa-save"></i> Save</button>  
+      <h4>About Page</h4>
+      <br>
+      <form action="#">
+        <div class="form-group">
+          <div class="post-content-editor" id="contentEditor">
+            <!-- Content Goes Here -->
+          </div>
+        </div>
+      </form>
+    </div>
+  </div>
+  
+  <script src="https://unpkg.com/pell"></script>
+  <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/axios/0.18.0/axios.min.js"></script>
+  <script>
+    const section = <%-JSON.stringify(section)%> || {
+      key: 'about',
+      content: ''
+    }
+    new Vue({
+      el: '#aboutPageEditor',
+      data: section,
+      mounted() {
+        pell.init({
+          element: document.getElementById('contentEditor'),
+          onChange: html => { this.content = html },
+          defaultParagraphSeparator: 'p',
+          styleWithCSS: false,
+          actions: ["bold", "italic", "underline", "strikethrough", "heading1", "heading2", "paragraph", "quote", "olist", "ulist", "code", "line", "link", "image"],
+  
+          classes: {
+            actionbar: 'pell-actionbar',
+            button: 'pell-button',
+            content: 'pell-content',
+            selected: 'pell-button-selected'
+          }
+        })
+        const contentElement = document.getElementsByClassName('pell-content')[0].innerHTML = this.content
+      },
+      methods: {
+        save: function (e) {
+          e.preventDefault()
+          console.log(this.key, this.content);
+          axios('/api/pagesections', {
+            method: 'post',
+            data: {
+              key: this.key,
+              content: this.content
+            }
+          })
+            .then((res) => {
+              new Noty({
+                type: 'success',
+                text: 'About page succesfully saved',
+                timeout: 2000,
+                layout: 'bottomCenter'
+              }).show();
+            })
+            .catch(err => {
+              console.log(err)
+              new Noty({
+                type: 'error',
+                text: 'Could not save page',
+                timeout: 2000,
+                layout: 'bottomCenter'
+              }).show();
+            })
+        }
+      }
+    })
+  </script>
+
+</div>
+
+<%- include ../partials/footer.html %>

@@ -1,15 +1,21 @@
-const { BlogPost } = require('../models')
+const { BlogPost, PageSection } = require('../models')
 const { tokenCookieName } = require('../utils/config')
 
 module.exports = {
-  
-  homePage: (req, res) => {
-    res.render('pages/home', {
-      pageHeader: {
-        title: 'About',
-        activeNavigation: 'home'
+
+  homePage: (req, res, next) => {
+    PageSection.get('about').then(aboutSection => {
+      if (!aboutSection) aboutSection = {
+        content: ''
       }
-    })
+      res.render('pages/home', {
+        pageHeader: {
+          title: 'About',
+          activeNavigation: 'home'
+        },
+        aboutSection
+      })
+    }).catch(next)
   },
 
   blogPage: (req, res, next) => {
@@ -56,9 +62,9 @@ module.exports = {
   },
 
   loginPage: (req, res) => {
-    if(req.user){
+    if (req.user) {
       res.status(302).redirect('/')
-    }else{
+    } else {
       res.render('pages/login', {
         pageHeader: {
           title: 'About',

@@ -1,4 +1,4 @@
-const { BlogPost, SiteOptions, User } = require('../models')
+const { BlogPost, SiteOptions, User, PageSection } = require('../models')
 const { tokenCookieName } = require('../utils/config')
 
 module.exports = {
@@ -59,6 +59,13 @@ module.exports = {
       .catch(err => {
         next({ httpCode: 400, success: false, error: err, message: 'Could not save options' })
       })
+  },
+
+  setPageSection: (req, res, next) => {
+    console.log(req.body)
+    PageSection.save(req.body).then((section) =>{
+      res.status(200).json(section);
+    }).catch(next);
   }
 
 }

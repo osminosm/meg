@@ -1,4 +1,4 @@
-const { sequelize, User, BlogPost } = require('./models')
+const { sequelize, User, BlogPost, PageSection } = require('./models')
 
 
 console.log("> Syncing with database...")
@@ -15,7 +15,7 @@ sequelize.sync().then(() => {
   //   })
   // })
   //User.findAll().then(users => users.map(user => console.log("User >>>> ",user)))
-  BlogPost.findAll().then((posts)=>{
-    console.log('success', posts);
+  PageSection.truncate().then((items)=>{
+    console.log('items', items);
   })
 })

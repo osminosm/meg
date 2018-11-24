@@ -5,15 +5,15 @@
     <form action="#">
       <div class="row">
         <div class="form-group col-sm-10">
-          <input type="text" class="form-control" v-model="title" placeholder="Post title" />
+          <input type="text" class="form-control" v-model="title" placeholder="Post title" required />
         </div>
         <div class="form-group col-sm-2">
-          <button class="btn btn-success btn-block" v-on:click="save"><i class="fa fa-save"></i> Save</button>
+          <button class="btn btn-success btn-block" v-on:click="save" tabindex="1000"><i class="fa fa-save"></i> Save</button>
         </div>
       </div>
 
       <div class="form-group">
-        <input type="text" class="form-control" v-model="slug" placeholder="Post slug" />
+        <input type="text" class="form-control" v-model="slug" placeholder="Post slug" required />
       </div>
       <div class="editor-modification-time" v-if="createdAt">
         <p><i class="fa fa-clock-o"></i> Created : {{(new Date(createdAt)).toLocaleString("en-US")}}, Modified : {{updatedAt!==createdAt?(new Date(updatedAt)).toLocaleString("en-US"):'Never'}}</p>

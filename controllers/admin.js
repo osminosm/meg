@@ -1,6 +1,22 @@
-const { BlogPost, SiteOptions } = require('../models')
+const { BlogPost, SiteOptions, PageSection } = require('../models')
 
 module.exports = {
+
+  adminIndex: (req, res) => {
+    res.status(302).redirect('/admin/blog')
+  },
+
+  editAbout: (req,res, next) =>{
+    PageSection.get('about').then(section => {
+      res.render('admin/editabout', {
+        pageHeader: {
+          title: 'Edit about page',
+          activeNavigation: 'editabout'
+        },
+        section
+      })
+    }).catch(next)
+  },
 
   blogPostsPage: (req, res, next) => {
     BlogPost.findAll()

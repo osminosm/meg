@@ -34,13 +34,13 @@
           <li class="<%=activeNavigation==='blog'?'selected':''%>"><a href="/blog">Blog</a></li>
           <li class="<%=activeNavigation==='contact'?'selected':''%>"><a href="/contact">Contact</a></li>
           <% if(isLoggedIn){ %>
-          <li><a href="/admin/settings">Administration</a></li>
+          <li><a href="/admin">Administration</a></li>
           <li><a href="/logout">Logout</a></li>
           <% } %>
         </ul>
       </nav>
       <%- include ./social-links.html %>
-      <p class="blog-promo-github">Like this minimalistic blog? check it out on <a href="#">Github</a></p>
+      <p class="blog-promo-github">Like this minimalistic blog? check it out on <a target="_blank" href="https://github.com/osminosm/meg">Github</a></p>
     </div>
   </header>
   <main>
