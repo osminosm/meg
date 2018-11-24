@@ -15,58 +15,130 @@
       <div class="form-group">
         <input type="text" class="form-control" v-model="slug" placeholder="Post slug" />
       </div>
+      <div class="editor-modification-time" v-if="createdAt">
+        <p><i class="fa fa-clock-o"></i> Created : {{(new Date(createdAt)).toLocaleString("en-US")}}, Modified : {{updatedAt!==createdAt?(new Date(updatedAt)).toLocaleString("en-US"):'Never'}}</p>
+      </div>
       <div class="form-group">
-        <div data-editable data-name="main-content" class="post-content-editor">
+        <div class="post-content-editor" id="contentEditor">
           <!-- Content Goes Here -->
         </div>
+      </div>
+      <div class="form-group">
+        <input type="checkbox" id="checkbox" v-model="published">
+        <label for="checkbox">Published</label>
+        <button class="btn btn-danger pull-right" v-on:click="remove" v-if="id"><i class="fa fa-trash"></i> Delete</button>
       </div>
     </form>
   </div>
 </div>
 
+<script src="https://unpkg.com/pell"></script>
 <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
-<script src="/assets/vendor/content-tools/content-tools.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/axios/0.18.0/axios.min.js"></script>
 <script>
-  const editor = ContentTools.EditorApp.get()
+  const postData = <%-post ? JSON.stringify(post) : '{}' %>
+  const fields = {
+    id: false,
+    title: '',
+    slug: '',
+    content: '',
+    published: false,
+    createdAt: null,
+    updatedAt: null
+  }
+  Object.keys(fields).forEach((field) => {
+    postData[field] = postData[field] || fields[field]
+  })
+
+  function slugify(string) {
+    const a = 'àáäâãåèéëêìíïîòóöôùúüûñçßÿœæŕśńṕẃǵǹḿǘẍźḧ·/_,:;'
+    const b = 'aaaaaaeeeeiiiioooouuuuncsyoarsnpwgnmuxzh------'
+    const p = new RegExp(a.split('').join('|'), 'g')
+    return string.toString().toLowerCase()
+      .replace(/\s+/g, '-') // Replace spaces with
+      .replace(p, c => b.charAt(a.indexOf(c))) // Replace special characters
+      .replace(/&/g, '-and-') // Replace & with ‘and’
+      .replace(/[^\w\-]+/g, '') // Remove all non-word characters
+      .replace(/\-\-+/g, '-') // Replace multiple — with single -
+      .replace(/^-+/, '') // Trim — from start of text .replace(/-+$/, '') // Trim — from end of text
+  }
   new Vue({
     el: '#blogpostform',
-    data: {
-      id: null,
-      title: '',
-      slug: '',
-      content: '<h1>Heelo <i>World</i></h1>',
-      published: false,
-      dateCreated: null,
-      dateModified: null
-    },
+    data: postData,
     mounted() {
-      editor.init('*[data-editable]', 'data-name', null, false)
-      editor.start()
-      const regions = editor.regions()
-      const initialContent = document.createElement('div')
-      initialContent.innerHTML = this.$data.content
-      regions['main-content'].setContent(initialContent)
+      pell.init({
+        element: document.getElementById('contentEditor'),
+        onChange: html => { this.content = html },
+        defaultParagraphSeparator: 'p',
+        styleWithCSS: false,
+        actions: ["bold", "italic", "underline", "strikethrough", "heading1", "heading2", "paragraph", "quote", "olist", "ulist", "code", "line", "link", "image"],
 
-      editor.addEventListener('saved', (ev) => {
-        this.$data.content = ev.detail().regions['main-content']
+        classes: {
+          actionbar: 'pell-actionbar',
+          button: 'pell-button',
+          content: 'pell-content',
+          selected: 'pell-button-selected'
+        }
       })
+      const contentElement = document.getElementsByClassName('pell-content')[0].innerHTML = this.content
+    },
+    watch: {
+      title: function (value) {
+        this.slug = slugify(value)
+      }
     },
     methods: {
-      save(e) {
+      save: function (e) {
         e.preventDefault()
-        editor.save(true)
         const postData = {
+          id: this.$data.id,
           title: this.$data.title,
           slug: this.$data.slug,
-          content: this.$data.content
+          content: this.$data.content,
+          published: this.$data.published
         }
-        console.log(postData)
-        axios.post('/api/blog/posts', postData)
+        axios('/api/blog/posts', {
+          method: postData.id ? 'put' : 'post',
+          data: postData
+        })
           .then((res) => {
-            console.log(res)
+            if (res.data.id) this.$data.id = res.data.id
+            if (res.data.slug) history.pushState(null, '', `/admin/blog/post/${res.data.slug}`);
+            new Noty({
+              type: 'success',
+              text: 'Blog post saved',
+              timeout: 2000,
+              layout: 'bottomCenter'
+            }).show();
           })
-          .catch((err) => { console.log(err) })
+          .catch(err => {
+            new Noty({
+              type: 'error',
+              text: 'Could not save blog post, duplicate slug?',
+              timeout: 2000,
+              layout: 'bottomCenter'
+            }).show();
+          })
+      },
+      remove: function (e) {
+        e.preventDefault();
+        axios('/api/blog/posts', {
+          method: 'delete',
+          data: {
+            id: this.id
+          }
+        })
+          .then(res => {
+            window.location.href = '/admin/blog'
+          })
+          .catch(err => {
+            new Noty({
+              type: 'error',
+              text: 'Could Not delete post',
+              timeout: 2000,
+              layout: 'bottomCenter'
+            }).show();
+          })
       }
     }
   })

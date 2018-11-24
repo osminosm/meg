@@ -16,13 +16,16 @@ module.exports = {
       .catch(err => { next(err) })
   },
 
-  postEditorPage: (req, res) => {
-    res.render('admin/blogpost', {
-      pageHeader: {
-        title: 'Add new post',
-        activeNavigation: 'blog'
-      }
-    })
+  postEditorPage: (req, res, next) => {
+    const { postSlug } = req.params
+    if (postSlug) {
+      BlogPost.getBySlug(postSlug).then((post) => {
+        if (post) { renderPostEditor(res, post) }
+        else next({ httpCode: 404, message: 'Blog Post not found' });
+      })
+    } else {
+      renderPostEditor(res)
+    }
   },
 
   siteOptions: (req, res) => {
@@ -37,4 +40,14 @@ module.exports = {
     }).catch(err => { next(err) })
   }
 
+}
+
+const renderPostEditor = (res, post) => {
+  res.render('admin/blogpost', {
+    pageHeader: {
+      title: post ? 'Edit post' : 'Add new post',
+      activeNavigation: 'blog'
+    },
+    post
+  })
 }

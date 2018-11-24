@@ -1,5 +1,5 @@
-module.exports = (sequelize, DataTypes) =>
-  sequelize.define('BlogPost', {
+module.exports = (sequelize, DataTypes) => {
+  const Model = sequelize.define('BlogPost', {
     slug: {
       type: DataTypes.STRING,
       unique: true
@@ -9,5 +9,19 @@ module.exports = (sequelize, DataTypes) =>
     },
     content: {
       type: DataTypes.TEXT
+    },
+    published: {
+      type: DataTypes.BOOLEAN,
+      defaultValue: false
     }
   })
+
+  Model.getBySlug = (slug) => sequelize.models.BlogPost.findOne({ where: { slug } })
+
+  Model.updatePost = (post) => sequelize.models.BlogPost.update(post, { where: { id: post.id } })
+
+  Model.deletePost = (id) => sequelize.models.BlogPost.destroy({ where: { id } })
+
+
+  return Model
+}

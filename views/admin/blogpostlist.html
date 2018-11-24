@@ -1,11 +1,31 @@
 <%- include('../partials/admin-header.html', pageHeader) %>
 
 <div class="container-fluid">
-  <h3>Blog posts</h3>
 
-  <% postList.forEach(post => { %>
-    <a href="/admin/blog/post/<%=post.slug%>"><%=post.title%></a>
-  <% }) %>
+  <h3>Blog posts</h3>
+  <a class="btn btn-info pull-right" href="/admin/blog/post"><i class="fa fa-file"></i> New Post</a>
+
+  <ul class="blog-list">
+    <% postList.forEach(function(post){ %>
+    <li>
+      <div class="media">
+        <div class="media-body">
+          <a href="/admin/blog/post/<%= post.slug %>">
+            <h5 class="mt-0">
+              <%= post.title %>
+            </h5>
+          </a>
+          <span>
+            <i class="fa fa-clock-o"></i> <%=(new Date(post.createdAt)).toLocaleString("en-US")%></span>
+          <p>
+            <%- post.exerpt %>
+          </p>
+        </div>
+      </div>
+    </li>
+    <% }) %>
+  
+  </ul>
 </div>
 
 <%- include ../partials/footer.html %>

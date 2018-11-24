@@ -31,6 +31,26 @@ module.exports = {
       })
   },
 
+  editPost: (req, res, next) => {
+    const postData = req.body;
+    BlogPost.updatePost(postData).then(result => {
+      if (result[0] === 1) {
+        res.status(200).json(postData)
+      } else {
+        next({ httpCode: 400, message: 'No posts were affected' });
+      }
+    }).catch(next)
+  },
+
+  deletePost: (req, res, next) => {
+    const postId = req.body.id
+    BlogPost.deletePost(postId)
+      .then(result => {
+        res.status(200).json(result);
+      })
+      .catch(next)
+  },
+
   saveSiteOptions: (req, res, next) => {
     SiteOptions.save(req.body)
       .then(() => {

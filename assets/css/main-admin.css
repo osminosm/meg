@@ -5,11 +5,8 @@
 .post-content-editor{
   border: 2px dotted #EEE;
   min-height:300px;
-  margin-bottom:30px;
 }
 
-.ct-widget.ct-inspector {
-  width:70%;
-  left:unset;
-  right:0;
+.editor-modification-time p{
+  font-size:14px;
 }
