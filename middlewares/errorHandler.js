@@ -7,7 +7,7 @@ module.exports = {
     if (req.path.indexOf('/api') === 0) {
       res.status(err.httpCode).json(err)
     } else {
-      res.status(err.httpCode).render('pages/error', err)
+      res.status(err.httpCode).render('./pages/error', err)
     }
   },
 
@@ -20,7 +20,7 @@ module.exports = {
       res.status(error.httpCode).json(error)
     } else {
       error.message = "Page not found"
-      res.status(error.httpCode).render('pages/error', error)
+      res.status(error.httpCode).render('./pages/error', error)
     }
   }
 }
