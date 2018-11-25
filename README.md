@@ -2,6 +2,14 @@
 
 [Meg](https://en.wiktionary.org/wiki/meg#Norwegian_Bokm%C3%A5l) [ the pronoun 'me' in norwegian : /mæɪ̯/], is a lightweight, minimalistic Blog/Personal site, with the sole goal to give its users an easy to run, fast, secure blog.
 
+This blog is built using:
+
+* Webapp Framework : [Express](https://expressjs.com/)
+* ORM : [Sequelize](http://docs.sequelizejs.com/)
+* View engine : [EJS](https://ejs.co/)
+* Content (WYSIWYG) Editor : [Pell](https://jaredreich.com/pell/)
+
+
 ## Clone, Setup and Run:
 
 Clone the project to a local repo:
