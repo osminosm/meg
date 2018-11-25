@@ -14,23 +14,41 @@ cd ./meg
 Install dependencies
 
 ```
-npm install
-## OR ##
+// using npm
+$ npm install
+// using yarn
 yarn
+```
+
+Additional Database drivers, as sequelize needs these to function depending on what db you're using
+
+```
+// using npm
+$ npm install --save pg pg-hstore // Postgres
+$ npm install --save mysql2  // MySql
+$ npm install --save sqlite3 // Sqlite
+$ npm install --save tedious // MSSQL
+
+// using yarn
+$ yarn add pg pg-hstore // Postgres
+$ yarn add mysql2  // MySql
+$ yarn add sqlite3 // Sqlite
+$ yarn add tedious // MSSQL
 ```
 
 Run for development:
 
 ```
-npm start
-## OR ##
+// using npm
+$ npm start
+// using yarn
 yarn start
 ```
 
 Run for production:
 
 ```
-node index.js --configFile /path/to/config.json
+$ node index.js --configFile /path/to/config.json
 ```
 
 ### Config file
