@@ -12,6 +12,7 @@ const { host, port } = require('./utils/config')
 const app = express()
 
 app.engine('html', require('ejs').renderFile)
+app.set('views', './views')
 app.set('view engine', 'html')
 
 app.use(morgan('dev'))

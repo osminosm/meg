@@ -62,7 +62,6 @@ module.exports = {
   },
 
   setPageSection: (req, res, next) => {
-    console.log(req.body)
     PageSection.save(req.body).then((section) =>{
       res.status(200).json(section);
     }).catch(next);
