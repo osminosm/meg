@@ -2,5 +2,26 @@
 <div class="page-header">
   <h1>res.render('contact-form')</h1>
 </div>
+<form action="#" class="row">
+  <div class="row col-md-8 offset-md-2">
+    <div class="form-group  col-md-5">
+      <label for="fullname">Full Name</label>
+      <input class="form-control" type="text" id="fullname" required>
+    </div>
+    <div class="form-group col-md-4">
+      <label for="email">Email</label>
+      <input class="form-control" type="email" id="email" required>
+    </div>
+    <div class="form-group col-md-3">
+      <br>
+      <button class="btn btn-lg btn-primary"><i class="fa fa-envelope"></i> Send</button>
+    </div>
+    <div class="form-group col-md-12">
+      <label for="message">Your Message</label>
+      <textarea class="form-control" name="message" id="message" cols="30" rows="10"></textarea>
+    </div>
+
+  </div>
+</form>
 
 <%- include ../partials/footer.html %>
