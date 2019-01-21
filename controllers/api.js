@@ -27,7 +27,7 @@ module.exports = {
         res.status(201).json(post)
       })
       .catch((err) => {
-        next({ httpCOde: 400, success: false, error: err, message: 'Could not create blog post' })
+        next({ httpCode: 400, success: false, error: err, message: 'Could not create blog post' })
       })
   },
 
