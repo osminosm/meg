@@ -1,5 +1,24 @@
-const { expect } = require("chai");
+process.env.NODE_ENV = "test";
 
-it("should run test", () => {
-  expect(1).to.equal(1);
+const chai = require("chai");
+const chaiHttp = require("chai-http");
+let app = require("../../index");
+let should = chai.should();
+
+const { sequelize } = require("../../models");
+
+chai.use(chaiHttp);
+
+describe("/api", () => {
+
+  it("GET /api/ should 403", done => {
+    chai
+      .request(app)
+      .get("/api")
+      .end((err, res) => {
+        res.should.have.status(403);
+        done();
+      });
+  });
 });
+
