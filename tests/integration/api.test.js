@@ -20,7 +20,7 @@ describe("/api", () => {
       });
   });
   describe("/api/auth", () => {
-    it("should 401 with bad credencials", done => {
+    it("POST should 401 with bad credencials", done => {
       chai
         .request(app)
         .post("/api/auth")
@@ -34,7 +34,7 @@ describe("/api", () => {
         });
     });
 
-    it("should 200 with correct user", done => {
+    it("POST should 200 with correct user", done => {
       User.createNew({
         username: "adminuser",
         password: "secretword"
@@ -54,5 +54,22 @@ describe("/api", () => {
           });
       });
     });
+  });
+
+  describe("/api/blog", () => {
+    it("POST /api/blog should validate post data");
+    it("POST /api/blog should add blog post");
+
+    it("PUT /api/blog should validate post data");
+    it("PUT /api/blog should edit blog post");
+
+    it("DELETE /api/blog should delete blog post");
+  });
+
+  describe("/api/pagesections", () => {
+    it("POST /api/pagesections should upsert page section");
+  });
+  describe("/api/options", () => {
+    it("POST /api/options should upsert site options");
   });
 });
